@@ -36,7 +36,7 @@
                 android:layout_height="50pt"
                 android:layout_marginRight="2pt"
                 android:layout_weight="1"
-                android:onClick="acEvent"
+                android:onClick="getExpression"
                 android:text="@string/ac"
                 android:backgroundTint="@color/Cream" />
             <Button
@@ -45,7 +45,7 @@
                 android:layout_height="50pt"
                 android:layout_marginRight="2pt"
                 android:layout_weight="1"
-                android:onClick="cEvent"
+                android:onClick="getExpression"
                 android:text="C"
                 android:backgroundTint="@color/Cream" />
             <Button
@@ -252,7 +252,7 @@
             android:layout_width="50pt"
             android:layout_height="50pt"
             android:text="="
-            android:onClick="equalEvent"
+            android:onClick="getExpression"
             android:textColor="@color/white"
             android:backgroundTint="@color/LightBlue" />
 

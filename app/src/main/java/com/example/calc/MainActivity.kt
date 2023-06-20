@@ -6,16 +6,28 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.calc.ViewModel.CalculatorViewModel
+import kotlin.math.exp
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var editText: TextView
+    private lateinit var calculatorViewModel: CalculatorViewModel
     private var expression = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         editText = findViewById(R.id.editText)
+
+        calculatorViewModel = ViewModelProvider(this).get(CalculatorViewModel::class.java)
+
+        calculatorViewModel.result.observe(this, Observer { result ->
+            editText.setText(result)
+        })
     }
     private fun isOperator(input: String): Boolean {
         return input in listOf("+", "-", "*", "/", "%")
@@ -72,98 +84,24 @@ class MainActivity : AppCompatActivity() {
                     expression = expression.substring(1)
                 }
             }
-        }
-
-        editText.setText(expression)
-    }
-
-    fun acEvent(view: View) {
-        expression = ""
-        editText.setText("0")
-    }
-    fun cEvent(view: View) {
-        if(expression.isEmpty()){
-            return
-        }
-        expression = expression.dropLast(1)
-        editText.setText(expression)
-    }
-
-    fun equalEvent(view: View) {
-        if (expression.isNotEmpty()) {
-            var firstStr = ""
-            var secondStr = ""
-            var foundOp = false
-            var op = '+'
-
-            // Check if the expression starts with '-'
-            if (expression.startsWith('-')) {
-                firstStr += "-"
-                // Skip the first character as it has been added to firstStr
-                for (i in 1 until expression.length) {
-                    val e = expression[i]
-                    if (!foundOp) {
-                        if (e == '+' || e == '-' || e == '*' || e == '/' || e == '%') {
-                            op = e
-                            foundOp = true
-                        } else {
-                            firstStr += e
-                        }
-                    } else {
-                        if (e == '+' || e == '-' || e == '*' || e == '/' || e == '%'){
-                            Toast.makeText(applicationContext,"Invalid Input",Toast.LENGTH_SHORT).show()
-                            return
-                        }
-                        secondStr += e
-                    }
-                }
-            } else {
-                // Expression does not start with '-', proceed as before
-                for (e in expression) {
-                    if (!foundOp) {
-                        if (e == '+' || e == '-' || e == '*' || e == '/' || e == '%') {
-                            op = e
-                            foundOp = true
-                        } else {
-                            firstStr += e
-                        }
-                    } else {
-                        if (e == '+' || e == '-' || e == '*' || e == '/' || e == '%'){
-                            Toast.makeText(applicationContext,"Invalid Input",Toast.LENGTH_SHORT).show()
-                            return
-                        }
-                        secondStr += e
-                    }
+            R.id.buEqual ->
+                // Call calculateExpression function with the updated expression
+                calculatorViewModel.calculateExpression(expression)
+            R.id.buAC -> {
+                expression = ""
+                editText.post {
+                    editText.setText("0")
                 }
             }
 
-            var result = 0.0
-
-            when (op) {
-                '+' -> {
-                    result = firstStr.toDouble() + secondStr.toDouble()
+            R.id.buC ->{
+                if(expression.isEmpty()){
+                    return
                 }
-                '*' -> {
-                    result = firstStr.toDouble() * secondStr.toDouble()
-                }
-                '/' -> {
-                    if (secondStr.toDouble() != 0.0) {
-                        result = firstStr.toDouble() / secondStr.toDouble()
-                    } else {
-                        // Handle division by zero
-                        editText.setText("∞")
-                        return
-                    }
-                }
-                '-' -> {
-                    result = firstStr.toDouble() - secondStr.toDouble()
-                }
-                '%' -> {
-                    result = firstStr.toDouble() % secondStr.toDouble()
-                }
+                expression = expression.dropLast(1)
+                editText.setText(expression)
             }
-
-            editText.setText(result.toString())
         }
+        editText.setText(expression)
     }
 }
