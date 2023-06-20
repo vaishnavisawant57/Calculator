@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="2pt"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="right|center"
+        android:text="@string/_0"
+        android:textSize="40sp"
+        android:maxLines="5"
+        android:inputType="textMultiLine" />
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/buAC"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="acEvent"
+                android:text="@string/ac"
+                android:backgroundTint="@color/Cream" />
+            <Button
+                android:id="@+id/buC"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="cEvent"
+                android:text="C"
+                android:backgroundTint="@color/Cream" />
+            <Button
+                android:id="@+id/buPercent"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="%"
+                android:backgroundTint="@color/Cream" />
+
+            <Button
+                android:id="@+id/buDivide"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="@string/Divide"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/LightBlue" />
+
+
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/bu7"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="7"
+                android:backgroundTint="@color/Cream" />
+
+            <Button
+                android:id="@+id/bu8"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="8"
+                android:backgroundTint="@color/Cream" />
+
+            <Button
+                android:id="@+id/bu9"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="9"
+                android:backgroundTint="@color/Cream" />
+            <Button
+                android:id="@+id/buMultiply"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="@string/multiply"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/LightBlue" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/bu4"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="4"
+                android:backgroundTint="@color/Cream" />
+
+            <Button
+                android:id="@+id/bu5"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="5"
+                android:backgroundTint="@color/Cream" />
+
+            <Button
+                android:id="@+id/bu6"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="6"
+                android:backgroundTint="@color/Cream" />
+            <Button
+                android:id="@+id/buMinus"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="-"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/LightBlue" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/bu1"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="1"
+                android:backgroundTint="@color/Cream" />
+
+            <Button
+                android:id="@+id/bu2"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="2"
+                android:backgroundTint="@color/Cream" />
+
+            <Button
+                android:id="@+id/bu3"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_marginRight="2pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="3"
+                android:backgroundTint="@color/Cream" />
+            <Button
+                android:id="@+id/buPlus"
+                android:layout_width="50pt"
+                android:layout_height="50pt"
+                android:layout_weight="1"
+                android:onClick="getExpression"
+                android:text="+"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/LightBlue" />
+
+
+
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/buPlusMinus"
+            android:layout_width="50pt"
+            android:layout_height="50pt"
+            android:layout_marginRight="2pt"
+            android:layout_weight="1"
+            android:onClick="getExpression"
+            android:text="@string/plusMinus"
+            android:backgroundTint="@color/Cream" />
+        <Button
+            android:id="@+id/bu0"
+            android:layout_width="50pt"
+            android:layout_height="50pt"
+            android:layout_marginRight="2pt"
+            android:layout_weight="2"
+            android:onClick="getExpression"
+            android:text="0"
+            android:backgroundTint="@color/Cream" />
+
+        <Button
+            android:id="@+id/buDot"
+            android:layout_width="50pt"
+            android:layout_height="50pt"
+            android:layout_marginRight="2pt"
+            android:layout_weight="1"
+            android:onClick="getExpression"
+            android:text="."
+            android:backgroundTint="@color/Cream" />
+
+        <Button
+            android:id="@+id/buEqual"
+            android:layout_width="50pt"
+            android:layout_height="50pt"
+            android:text="="
+            android:onClick="equalEvent"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/LightBlue" />
+
+    </LinearLayout>
+
+</LinearLayout>
