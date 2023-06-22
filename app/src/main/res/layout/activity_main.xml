@@ -116,7 +116,6 @@
                 android:textColor="@color/white"
                 android:backgroundTint="@color/LightBlue" />
 
-
         </TableRow>
 
         <TableRow
@@ -255,7 +254,5 @@
             android:onClick="getExpression"
             android:textColor="@color/white"
             android:backgroundTint="@color/LightBlue" />
-
     </LinearLayout>
-
 </LinearLayout>

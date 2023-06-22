@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.calc.ViewModel.CalculatorViewModel
-import kotlin.math.exp
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         editText = findViewById(R.id.editText)
 
         calculatorViewModel = ViewModelProvider(this).get(CalculatorViewModel::class.java)

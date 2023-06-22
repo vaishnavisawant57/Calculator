@@ -38,6 +38,7 @@ class CalculatorViewModel : ViewModel() {
                         secondStr += e
                     }
                 }
+
             } else {
                 // Expression does not start with '-', proceed as before
                 for (e in expression) {
@@ -57,7 +58,9 @@ class CalculatorViewModel : ViewModel() {
                     }
                 }
             }
-
+            if(!foundOp){
+                return
+            }
             var res = 0.0
 
             when (op) {
@@ -72,7 +75,7 @@ class CalculatorViewModel : ViewModel() {
                         res = firstStr.toDouble() / secondStr.toDouble()
                     } else {
                         // Handle division by zero
-                        _result.value=res.toString();
+                        _result.postValue("∞")
                         return
                     }
                 }
