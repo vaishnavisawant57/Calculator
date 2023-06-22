@@ -9,13 +9,16 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.calc.ViewModel.CalculatorViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var editText: TextView
     private lateinit var calculatorViewModel: CalculatorViewModel
     private var expression = ""
-
+    private val disposables = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,8 +27,18 @@ class MainActivity : AppCompatActivity() {
         calculatorViewModel = ViewModelProvider(this).get(CalculatorViewModel::class.java)
 
         calculatorViewModel.result.observe(this, Observer { result ->
-            editText.setText(result)
+            if(result=="invalid"){
+                Toast.makeText(applicationContext,"Invalid Input",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                editText.text = result
+            }
+
         })
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        disposables.clear()
     }
     private fun isOperator(input: String): Boolean {
         return input in listOf("+", "-", "*", "/", "%")
@@ -41,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         val buttonSelect = view as Button
         val input = buttonSelect.text.toString()
         // Check if the expression is empty and the input is an operator
-        if ((expression.isEmpty() && isOperator(input))) {
+        if ((expression.isEmpty() && (input=="+" ||input=="*" || input=="/" || input=="%"))) {
             // Ignore the operator press in the beginning
             Toast.makeText(applicationContext,"Invalid Input",Toast.LENGTH_SHORT).show()
             return

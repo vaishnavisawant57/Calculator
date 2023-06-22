@@ -1,16 +1,26 @@
 package com.example.calc.ViewModel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class CalculatorViewModel : ViewModel() {
 
-    private val _result = MutableLiveData<String>()
-    val result: LiveData<String>
+    private val expressionSubject: BehaviorSubject<String> = BehaviorSubject.createDefault("")
+    private val _result: MutableLiveData<String> = MutableLiveData()
+    val result: MutableLiveData<String>
         get() = _result
 
-    fun calculateExpression(expression: String) {
+    init {
+        expressionSubject
+            .map { calculateExpression(it) }
+            .distinctUntilChanged()
+            .subscribe { result ->
+                _result.postValue(result)
+            }
+    }
+
+    fun calculateExpression(expression: String): String {
         if (expression.isNotEmpty()) {
             var firstStr = ""
             var secondStr = ""
@@ -31,14 +41,12 @@ class CalculatorViewModel : ViewModel() {
                             firstStr += e
                         }
                     } else {
-                        if (e == '+' || e == '-' || e == '*' || e == '/' || e == '%'){
-//                            Toast.makeText(applicationContext,"Invalid Input",Toast.LENGTH_SHORT).show()
-                            return
+                        if (e == '+' || e == '-' || e == '*' || e == '/' || e == '%') {
+                            return "invalid"
                         }
                         secondStr += e
                     }
                 }
-
             } else {
                 // Expression does not start with '-', proceed as before
                 for (e in expression) {
@@ -50,44 +58,51 @@ class CalculatorViewModel : ViewModel() {
                             firstStr += e
                         }
                     } else {
-                        if (e == '+' || e == '-' || e == '*' || e == '/' || e == '%'){
-//                            Toast.makeText(applicationContext,"Invalid Input",Toast.LENGTH_SHORT).show()
-                            return
+                        if (e == '+' || e == '-' || e == '*' || e == '/' || e == '%') {
+                            return "invalid"
                         }
                         secondStr += e
                     }
                 }
             }
-            if(!foundOp){
-                return
+            if (!foundOp) {
+                return "invalid"
             }
-            var res = 0.0
+            if(secondStr.isEmpty() && (op=='+' || op=='-' || op=='/' || op=='*')){
+                return "invalid"
+            }
 
             when (op) {
                 '+' -> {
-                    res = firstStr.toDouble() + secondStr.toDouble()
+                    _result.postValue((firstStr.toDouble() + secondStr.toDouble()).toString())
                 }
+
                 '*' -> {
-                    res = firstStr.toDouble() * secondStr.toDouble()
+                    _result.postValue((firstStr.toDouble() * secondStr.toDouble()).toString())
                 }
+
                 '/' -> {
                     if (secondStr.toDouble() != 0.0) {
-                        res = firstStr.toDouble() / secondStr.toDouble()
+                        _result.postValue((firstStr.toDouble() / secondStr.toDouble()).toString())
                     } else {
-                        // Handle division by zero
                         _result.postValue("∞")
-                        return
                     }
                 }
+
                 '-' -> {
-                    res = firstStr.toDouble() - secondStr.toDouble()
+                    _result.postValue((firstStr.toDouble() - secondStr.toDouble()).toString())
                 }
+
                 '%' -> {
-                    res = firstStr.toDouble() % secondStr.toDouble()
+                    _result.postValue((firstStr.toDouble()/100).toString())
                 }
             }
-            _result.postValue(res.toString())
         }
+        return "0"
+    }
+
+    fun updateExpression(expression: String) {
+        expressionSubject.onNext(expression)
     }
 
 }
